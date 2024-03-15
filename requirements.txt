@@ -1,0 +1,8 @@
+pandas
+numpy
+seaborn
+keras
+tensorflow
+pydot
+graphviz
+-e .
