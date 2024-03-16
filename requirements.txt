@@ -5,4 +5,5 @@ keras
 tensorflow
 pydot
 graphviz
+opencv-python
 -e .
