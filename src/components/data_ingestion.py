@@ -25,7 +25,7 @@ class data_ingestion:
             )
 
             self.valid_data = keras.utils.image_dataset_from_directory(
-                directory='test_data/',
+                directory='valid_data/',
                 labels='inferred',
                 label_mode='categorical',
                 class_names= ['guns','knife'],
@@ -33,14 +33,11 @@ class data_ingestion:
             )
             class_names =  self.train_data.class_names
             print(class_names)
-            plt.figure(figsize=(10, 10))
-            for images, labels in self.train_data.take(1):
-                for i in range(1):
-                    ax = plt.subplot(3, 3, i + 1)
-                    plt.imshow(images[i].numpy().astype("uint8"))
-                    #plt.title(class_names[labels[i]])
-                    plt.axis("off")
-            #data_dir = '/train_data'
+            for image_batch, labels_batch in self.train_data:
+                print(image_batch.shape)
+                print(labels_batch.shape)
+                break
+
             return (self.train_data , self.valid_data)    
         
         except Exception as e:
@@ -51,10 +48,10 @@ class data_ingestion:
 if __name__ == "__main__":
     obj = data_ingestion()
     train_data,valid_data = obj.get_data()
+
+    data_transform = DataTransformation()
+    train,valid = data_transform.data_transform(train_data=train_data,valid_data=valid_data)
+    class_name = train_data.class_names
     
-    #data_transform = DataTransformation()
-    #train,valid = data_transform.data_transform(train_data=train_data,valid_data=valid_data)
-    
-    #model_trainer = ModelTrainer()
-    #print(model_trainer.model_trainer(train_data=train,valid_data=valid))
-    
+    model_trainer = ModelTrainer()
+    model_trainer.model_trainer(train_data=train,valid_data=valid)

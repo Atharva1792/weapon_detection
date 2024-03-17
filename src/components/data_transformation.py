@@ -13,15 +13,19 @@ class DataTransformation:
     def data_transform(self,train_data,valid_data):
         try:
             logging.info("Preprocessing started")
-            self.train_data = keras.layers.Resizing(180,180)
-            self.valid_data = keras.layers.Resizing(180,180)
-            self.train_data = keras.layers.Rescaling(scale=1./255,offset=0.0)
-            self.valid_data = keras.layers.Rescaling(scale=1./255,offset=0.0)
+
+            #normalize_layer = keras.layers.Rescaling(1./255)
+            #train_data = keras.layers.Rescaling(scale=1./255)
+            #valid_data = keras.layers.Rescaling(scale=1./255)
             
+            AUTOTUNE = tf.data.AUTOTUNE
+
+            train_data = train_data.cache().prefetch(buffer_size=AUTOTUNE)
+            valid_data = valid_data.cache().prefetch(buffer_size=AUTOTUNE)
             logging.info("Preprocessing done")
-            print(train_data)
-            print(valid_data)
-            return (self.train_data , self.valid_data)
+            #print(train_data)
+            #print(valid_data)
+            return (train_data , valid_data)
 
         except Exception as e:
             raise CustomException(e,sys)
