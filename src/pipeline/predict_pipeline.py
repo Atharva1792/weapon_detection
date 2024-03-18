@@ -10,8 +10,8 @@ try:
 
     model = keras.models.load_model("model.keras")
     #img = keras.utils.load_img('C:\\weapon_detection\\test5.jpg')
-    img_path = 'C:\\weapon_detection\\knife_374.jpg'
-    img = keras.preprocessing.image.load_img(img_path,target_size=(256,256))
+    img_path = 'C:\\weapon_detection\\test2.jpg'
+    img = keras.preprocessing.image.load_img(img_path,target_size=(100,100))
     #img = keras.layers.Resizing(256,256)
     #img = keras.layers.Rescaling(1./255)
     #print(img.shape)

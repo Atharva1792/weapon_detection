@@ -15,9 +15,9 @@ class ModelTrainer:
             logging.info("Training model started")
             model = Sequential()
             
-            model.add(keras.layers.Input((256,256,3)))
-            model.add(keras.layers.Rescaling(1./255))
-            model.add(Conv2D(32, (3,3), activation = 'relu', input_shape = (256 , 256 , 3)))
+            model.add(keras.layers.Input((100,100,3)))
+            model.add(keras.layers.Rescaling(1./255.0))
+            model.add(Conv2D(32, (3,3), activation = 'relu'))
             model.add(MaxPooling2D((2,2,)))
             
             model.add(Conv2D(32, (3,3), activation = 'relu'))
@@ -25,14 +25,14 @@ class ModelTrainer:
 
             model.add(Flatten())
             model.add(Dense(64,activation = 'relu'))
-            model.add(Dense(2,activation= 'softmax'))
+            model.add(Dense(2,activation= 'sigmoid'))
             model.summary()
             model.compile(
-                loss='categorical_crossentropy',
+                loss='binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy']
                 )
-            model.fit(train_data,validation_data=valid_data,epochs=20,batch_size=64)
+            model.fit(train_data,validation_data=valid_data,epochs=10,batch_size=64)
             
             print(model.metrics_names)
             print(model.evaluate(valid_data))
