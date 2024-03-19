@@ -14,9 +14,8 @@ class ModelTrainer:
         try:
             logging.info("Training model started")
             model = Sequential()
-            
-            model.add(keras.layers.Input((100,100,3)))
-            model.add(keras.layers.Rescaling(1./255.0))
+
+            model.add(keras.layers.Rescaling((1./255.0),input_shape=(100,100,3)))
             model.add(Conv2D(32, (3,3), activation = 'relu'))
             model.add(MaxPooling2D((2,2,)))
             
@@ -32,9 +31,8 @@ class ModelTrainer:
                 optimizer='adam',
                 metrics=['accuracy']
                 )
-            model.fit(train_data,validation_data=valid_data,epochs=10,batch_size=64)
+            model.fit(train_data,validation_data=valid_data,epochs=10)
             
-            print(model.metrics_names)
             print(model.evaluate(valid_data))
             
             logging.info("Model Training Complete")

@@ -14,10 +14,7 @@ class DataTransformation:
         try:
             logging.info("Preprocessing started")
 
-            #normalize_layer = keras.layers.Rescaling(1./255)
-            #train_data = keras.layers.Rescaling(scale=1./255)
-            #valid_data = keras.layers.Rescaling(scale=1./255)
-            
+
             AUTOTUNE = tf.data.AUTOTUNE
 
             train_data = train_data.cache().prefetch(buffer_size=AUTOTUNE)
