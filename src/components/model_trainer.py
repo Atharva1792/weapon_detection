@@ -1,8 +1,6 @@
-import os
 import numpy as np
 import sys
 import keras
-import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import MaxPooling2D,Conv2D,Dense,Flatten
 
@@ -15,7 +13,7 @@ class ModelTrainer:
             logging.info("Training model started")
             model = Sequential()
 
-            model.add(keras.layers.Rescaling((1./255.0),input_shape=(100,100,3)))
+            model.add(keras.layers.Rescaling((1./255.0),input_shape=(180,180,3)))
             model.add(Conv2D(32, (3,3), activation = 'relu'))
             model.add(MaxPooling2D((2,2,)))
             
@@ -31,9 +29,10 @@ class ModelTrainer:
                 optimizer='adam',
                 metrics=['accuracy']
                 )
-            model.fit(train_data,validation_data=valid_data,epochs=10)
+            model.fit(train_data,validation_data=valid_data,epochs=15,batch_size=64)
             
-            print(model.evaluate(valid_data))
+            _,acc = model.evaluate(valid_data)
+            print("Accuracy of Model: ",acc)
             
             logging.info("Model Training Complete")
         

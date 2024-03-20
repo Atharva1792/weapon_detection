@@ -25,7 +25,7 @@ class data_ingestion:
                 subset='training',
                 seed=123,
                 batch_size=32,
-                image_size=(100,100)
+                image_size=(180,180)
             )
 
             self.valid_data = keras.utils.image_dataset_from_directory(
@@ -37,7 +37,7 @@ class data_ingestion:
                 seed=123,
                 class_names= ['guns','knife'],
                 batch_size=32,
-                image_size=(100,100)
+                image_size=(180,180)
             )
             
             for image_batch, labels_batch in self.train_data:
@@ -58,8 +58,9 @@ if __name__ == "__main__":
     obj = data_ingestion()
     train_data,valid_data = obj.get_data()
 
-    data_transform = DataTransformation()
-    train,valid = data_transform.data_transform(train_data=train_data,valid_data=valid_data)
+    #data_transform = DataTransformation()
+    #train,valid = data_transform.data_transform(train_data=train_data,valid_data=valid_data)
     
     model_trainer = ModelTrainer()
-    model_trainer.model_trainer(train_data=train,valid_data=valid)
+    model_trainer.model_trainer(train_data=train_data,valid_data=valid_data)
+    
