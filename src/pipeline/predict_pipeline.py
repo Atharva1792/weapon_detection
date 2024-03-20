@@ -11,6 +11,11 @@ try:
 
     model = keras.models.load_model("model.keras")
     class_names = ['Gun','Knife']
+    dataIngestion = data_ingestion()
+    _,valid_data = dataIngestion.get_data()
+    
+    model.evaluate(valid_data)
+    
     for i in range(20):
         img_path = f'C:\\weapon_detection\\test_data\\test{i}.jpg'
         img = keras.preprocessing.image.load_img(img_path,target_size=(180,180))

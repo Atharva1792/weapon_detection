@@ -40,13 +40,6 @@ class data_ingestion:
                 image_size=(180,180)
             )
             
-            for image_batch, labels_batch in self.train_data:
-                print("Shape of image and label:")
-                print(image_batch.shape)
-                print(labels_batch.shape)
-
-                break
-
             return (self.train_data , self.valid_data)    
         
         except Exception as e:
